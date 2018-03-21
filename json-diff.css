@@ -1,0 +1,56 @@
+.fill-layout{
+	height: 100%;
+	width: 100%;
+}
+
+.diff-toolbar{
+	height: 60px;
+}
+
+.choose-file-text-div{
+	 font-size: 24px;
+    font-weight: 300;
+    margin: 5px;
+    color: chocolate;
+}
+
+#file_input_text_div {
+  width: 200px;
+  margin-top: -8px;
+  margin-left: 5px;
+}
+
+.none {
+  display: none;
+}
+
+.file-name{
+  	width: 305px;
+}
+
+.error{
+	font-size: 13px;
+    color: red;
+    margin-top: -39px;
+}
+
+.upload{
+    min-width: 38px;
+    margin-top: 7px;
+    margin-right: 0px;
+    padding: 0px;
+    background-color: darkgray;
+    height: 45px;
+}
+
+.result-text{
+	height: 20px;
+    padding-top: 25px;
+    margin-left: 10px;
+}
+
+.difference{
+	min-height: 25px;
+    margin-left: 35px;
+    padding: 5px;
+}

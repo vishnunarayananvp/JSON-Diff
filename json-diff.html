@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>JSON diff</title>
+		<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.7/angular-material.min.css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="json-diff.css">
+		
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-animate.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-aria.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-messages.min.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.7/angular-material.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.5/lodash.min.js"></script>
+		<script src="json-diff.js"></script>
+		<script src="validate-json.js"></script>
+	</head>
+	<body ng-app='jsondiff' >
+		<div ng-controller='DiffController' class='fill-layout'>
+			<md-toolbar class="diff-toolbar">
+			<h2 class="md-toolbar-tools">JSON Diff</h2>
+			</md-toolbar>
+			<md-content class="" style="height: calc(100% - 65px); min-width: 825px;">
+			<md-card class="">
+			<div layout="row" layout-align="center center" class="choose-file-text-div">
+				<span>Choose JSON files</span>
+			</div>
+			<div layout="column">
+				<div layout="row" layout-align="center center">
+					<div layout="row" layout-align="center center">
+						<div>
+							<md-button aria-label="menu" class="upload" trigger-file-input target="source_file">
+							<md-icon>file_upload</md-icon>
+							</md-button>
+							<input id="source_file" class="none" type="file" fileread="sourceFile" filename="sourceFileName"/>
+						</div>
+						<div layout="column">
+							<md-input-container class="file-name">
+							<input type="text" readonly id="file_input_text" ng-model="sourceFileName" placeholder="Source File">
+							</md-input-container>
+							<span class="error"> {{sourceError}}</span>
+						</div>
+					</div>
+					<div style="width: 20%"></div>
+					<div layout="row" layout-align="center center">
+						<div>
+							<md-button aria-label="menu" class="upload" trigger-file-input target="target_file">
+							<md-icon>file_upload</md-icon>
+							</md-button>
+							<input id="target_file" class="none" type="file" fileread="destFile" filename="destFileName"/>
+						</div>
+						<div layout="column">
+							<md-input-container class="file-name">
+							<input type="text" readonly id="file_input_text" ng-model="destFileName"  placeholder="Destination File">
+							</md-input-container>
+							<span class="error"> {{destError}}</span>
+						</div>
+					</div>
+				</div>
+				<div layout="row"  layout-align="space-around center" style="margin-top: 15px;">
+					<div>
+						<md-checkbox aria-label="data mode" ng-checked="dataMode" ng-click="dataMode = true" class="md-primary">
+            				Data mode
+          				</md-checkbox>
+					</div>
+					<div>
+						<md-checkbox aria-label="Key mode" ng-checked="!dataMode" ng-click="dataMode = false" class="md-primary">
+            				Key mode
+          				</md-checkbox>
+					</div>
+				</div>
+				<div layout="row"  layout-align="center center" style="margin-top: 15px;">
+					<div>
+						<md-button aria-label="menu" class="md-raised md-primary" ng-click="showDifference()">
+						SHOW DIFFERENCE
+						</md-button>
+					</div>
+					<div>
+						<md-button aria-label="menu" class="md-raised md-primary" ng-click="clearAll()">
+						CLEAR
+						</md-button>
+					</div>
+				</div>
+			</div>   
+			</md-card>
+			<md-card  style="max-height: calc(100%  - 235px); overflow: auto;" ng-if="isDifferenceExixts() === 'dif'">
+				<div class="result-text"><span> The following keys are not present in target json :</span></div>
+				<div style="user-select: all;">
+					<pre class="difference">{{difference}}</pre>
+				</div>
+			</md-card>
+			<md-card  style="max-height: calc(100%  - 235px); overflow: auto;" ng-if="isDifferenceExixts() === 'eq'">
+				<div class="result-text"><span> The destination JSON has source JSON fields.</span></div>
+			</md-card>
+			</md-content>
+		</div>
+	</body>
+</html>
